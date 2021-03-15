@@ -24,7 +24,7 @@ class Status(models.Model):
 
 
 class Escape(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True, db_column="id")
     applyer_id = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, db_column="applyer_id"
     )
