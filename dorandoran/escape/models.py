@@ -33,3 +33,9 @@ class Escape(models.Model):
     status = models.ManyToManyField(Status)
     start_at = models.DateTimeField(_("start time"))
     end_at = models.DateTimeField(_("end time"))
+
+    class Meta:
+        db_table = u"Escape"
+
+    def __str__(self):
+        return self.id, self.applyer_id
