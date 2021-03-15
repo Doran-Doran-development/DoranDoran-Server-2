@@ -10,3 +10,5 @@ class Team(models.Model) :
 class TeamMember(models.Model) :
     team_id = models.ForeignKey("Team",on_delete=models.CASCADE)
     # member_id
+    class Meta:
+        unique_together = ('team_id','member_id',)
