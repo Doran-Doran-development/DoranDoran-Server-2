@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "escape",
+    "users",
 ]
 
 MIDDLEWARE = [
