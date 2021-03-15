@@ -7,7 +7,7 @@ ALLOWED_HOSTS = ["127.0.0.0", "localhost"]
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "mysql.connector.django",
         "NAME": os.getenv("NAME"),
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
