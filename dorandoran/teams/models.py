@@ -6,3 +6,7 @@ class Team(models.Model) :
     name = models.CharField(max_length=25)
     description = models.CharField(max_length=250,null=True)
     # reserver_id
+
+class TeamMember(models.Model) :
+    team_id = models.ForeignKey("Team",on_delete=models.CASCADE)
+    # member_id
