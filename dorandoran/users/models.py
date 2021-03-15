@@ -40,3 +40,16 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), unique=True, max_length=128)
 
     role = models.ManyToManyField(Role)
+
+
+class StudentProfile(models.Model):
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE, db_column="user_id")
+    entrance_year = models.IntegerField()
+    classroom = models.IntegerField(null=False, default=0)
+    number = models.IntegerField(null=False, default=0)
+
+
+class TeacherProfile(models.Model):
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE, db_column="user_id")
+    classroom = models.IntegerField(null=True)
+    grade = models.IntegerField(null=True)
