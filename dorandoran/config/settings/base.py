@@ -16,6 +16,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "escape",
     "users",
+    "rooms",
+    "teams",
 ]
 
 MIDDLEWARE = [
