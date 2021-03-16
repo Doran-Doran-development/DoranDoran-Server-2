@@ -15,7 +15,7 @@ jobs:
       SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
       DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
       JWT_SECRET_KEY: ${{ secrets.TEST_JWT_SECRET_KEY }}
-      JWT_ALGORITM: ${{ secrets.TEST_JWT_ALGORITM }}
+      JWT_ALGORITHM: ${{ secrets.TEST_JWT_ALGORITHM }}
       DJANGO_SETTINGS_MODULE: config.settings.deploy
     steps:
       - uses: actions/checkout@v2
