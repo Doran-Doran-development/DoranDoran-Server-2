@@ -15,10 +15,10 @@ class ReservationQueue(models.Model):
     }  # TODO : base.py 에서 처리하도록 하자
 
     team_id = models.ForeignKey(
-        "teams.Team", on_delete=models.CASCADE, db_column="post_id"
+        "teams.Team", on_delete=models.CASCADE, db_column="team_id"
     )
     room_id = models.ForeignKey(
-        "rooms.Room", on_delete=models.CASCADE, db_column="post_id"
+        "rooms.Room", on_delete=models.CASCADE, db_column="room_id"
     )
     time = models.IntegerField()
     date = models.DateTimeField()
