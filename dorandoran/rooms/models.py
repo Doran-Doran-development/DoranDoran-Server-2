@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class rooms(models.Model):
+class Room(models.Model):
     room_id = models.AutoField(primary_key=True, db_column="room_id")
     name = models.CharField(max_length=50)
     owner_id = models.ForeignKey("users.User", on_delete=models.SET_NULL, null=True)
