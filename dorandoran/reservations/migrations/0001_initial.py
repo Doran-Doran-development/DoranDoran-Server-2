@@ -9,22 +9,21 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('users', '0001_initial'),
+        ('teams', '0001_initial'),
+        ('rooms', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EscapeQueue',
+            name='ReservationQueue',
             fields=[
                 ('id', models.AutoField(db_column='id', primary_key=True, serialize=False)),
-                ('reason', models.CharField(default='reason', max_length=100, verbose_name='reason')),
+                ('time', models.IntegerField()),
+                ('date', models.DateTimeField()),
                 ('status', models.PositiveSmallIntegerField(choices=[(1, 'accepted'), (2, 'denied'), (3, 'waiting'), (4, 'expired')], default=3)),
-                ('start_at', models.DateTimeField(verbose_name='start time')),
-                ('end_at', models.DateTimeField(verbose_name='end time')),
-                ('applicant_id', models.ForeignKey(db_column='applicant_id', on_delete=django.db.models.deletion.CASCADE, to='users.user')),
+                ('description', models.CharField(max_length=256)),
+                ('room_id', models.ForeignKey(db_column='room_id', on_delete=django.db.models.deletion.CASCADE, to='rooms.room')),
+                ('team_id', models.ForeignKey(db_column='team_id', on_delete=django.db.models.deletion.CASCADE, to='teams.team')),
             ],
-            options={
-                'db_table': 'EscapeQueue',
-            },
         ),
     ]
