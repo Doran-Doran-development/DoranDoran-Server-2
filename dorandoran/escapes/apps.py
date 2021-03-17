@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class EscapeConfig(AppConfig):
-    name = "escape"
+    name = "escapes"
