@@ -18,11 +18,11 @@ class User(AbstractUser):
     TEACHER = 2
     ADMIN = 3
 
-    ROLE_CHOICES = {
+    ROLE_CHOICES = (
         (STUDENT, "student"),
         (TEACHER, "teacher"),
         (ADMIN, "admin"),
-    }
+    )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, db_column="id")
     name = models.CharField(_("real name"), max_length=150, default="unknown")

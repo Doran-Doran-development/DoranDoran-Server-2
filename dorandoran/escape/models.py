@@ -5,12 +5,12 @@ from django.utils.translation import gettext_lazy as _
 
 
 class EscapeQueue(models.Model):
-    STATUS_CHOICES = {
+    STATUS_CHOICES = (
         (1, "accepted"),
         (2, "denied"),
         (3, "waiting"),
         (4, "expired"),
-    }
+    )
     id = models.AutoField(primary_key=True, db_column="id")
     applicant_id = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, db_column="applicant_id"

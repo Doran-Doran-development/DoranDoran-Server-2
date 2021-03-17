@@ -7,12 +7,12 @@ class ReservationQueue(models.Model):
     WAITING = 3
     EXPIRED = 4
 
-    STATUS_CHOICES = {
+    STATUS_CHOICES = (
         (ACCEPTED, "accepted"),
         (DENIED, "denied"),
         (WAITING, "waiting"),
         (EXPIRED, "expired"),
-    }  # TODO : base.py 에서 처리하도록 하자
+    )  # TODO : base.py 에서 처리하도록 하자
 
     id = models.AutoField(primary_key=True, db_column="id")
     team_id = models.ForeignKey(
