@@ -22,5 +22,5 @@ class ReservationQueue(models.Model):
     )
     time = models.IntegerField()
     date = models.DateTimeField()
-    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES)
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, null=False, default=3)
     description = models.CharField(max_length=256)
