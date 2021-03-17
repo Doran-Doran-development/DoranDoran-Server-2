@@ -14,6 +14,7 @@ class ReservationQueue(models.Model):
         (EXPIRED, "expired"),
     }  # TODO : base.py 에서 처리하도록 하자
 
+    id = models.AutoField(primary_key=True, db_column="id")
     team_id = models.ForeignKey(
         "teams.Team", on_delete=models.CASCADE, db_column="team_id"
     )
@@ -22,5 +23,7 @@ class ReservationQueue(models.Model):
     )
     time = models.IntegerField()
     date = models.DateTimeField()
-    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, null=False, default=3)
+    status = models.PositiveSmallIntegerField(
+        choices=STATUS_CHOICES, null=False, default=3
+    )
     description = models.CharField(max_length=256)
