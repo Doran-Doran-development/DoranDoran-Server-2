@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 
-class Escape(models.Model):
+class EscapeQueue(models.Model):
     STATUS_CHOICES = {
         (1, "accepted"),
         (2, "denied"),
@@ -12,8 +12,8 @@ class Escape(models.Model):
         (4, "expired"),
     }
     id = models.AutoField(primary_key=True, db_column="id")
-    applyer_id = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, db_column="applyer_id"
+    applicant_id = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, db_column="applicant_id"
     )
     reason = models.CharField(_("reason"), max_length=100, null=False, default="reason")
     status = models.PositiveSmallIntegerField(
@@ -23,7 +23,7 @@ class Escape(models.Model):
     end_at = models.DateTimeField(_("end time"))
 
     class Meta:
-        db_table = u"Escape"
+        db_table = u"EscapeQueue"
 
     def __str__(self):
-        return self.id, self.applyer_id
+        return self.id, self.applicant_id
