@@ -41,3 +41,8 @@ class ApplyEscape(TestCase):
         )
 
         self.token = response.json()["token"]
+
+        def tearDown(self):
+            User.objects.all().delete()
+            StudentProfile.objects.all().delete()
+            EscapeQueue.objects.all().delete()
