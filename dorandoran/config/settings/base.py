@@ -5,8 +5,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = False
-
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
