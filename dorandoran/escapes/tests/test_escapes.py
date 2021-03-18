@@ -33,3 +33,11 @@ class ApplyEscape(TestCase):
         }
 
         StudentProfile.objects.create(**student)
+
+        user_login = {"email": "student1@example.com", "password": "test1234"}
+
+        response = client.post(
+            "auth/login", user_login, content_type="application/json"
+        )
+
+        self.token = response.json()["token"]
