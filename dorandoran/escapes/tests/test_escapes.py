@@ -19,7 +19,7 @@ class ApplyEscape(TestCase):
             "id": student_id,
             "email": "student1@example.com",
             "name": "학생",
-            "password": make_password("1234"),
+            "password": make_password("test1234"),
             "role": 1,
         }
 
