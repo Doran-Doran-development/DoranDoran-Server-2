@@ -41,7 +41,7 @@ schema_view = get_schema_view(
     ),
     patterns=schema_url_patterns,
     public=True,
-    permission_classes=(permissions.AllowAny),
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
