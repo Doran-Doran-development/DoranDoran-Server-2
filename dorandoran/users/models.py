@@ -21,6 +21,14 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_student(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("role", UserRole.STUDENT.value)
+        return self.create_user(email=email, password=password, **extra_fields)
+
+    def create_teacher(self, email, password=None, **extra_fields):
+        extra_fields.setdefault("role", UserRole.TEACHER.value)
+        return self.create_user(email=email, password=password, **extra_fields)
+
 
 class User(AbstractUser):
     first_name = None
