@@ -7,6 +7,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
+
 ROLE_CHOICES = (
     (1, "student"),
     (2, "teacher"),
