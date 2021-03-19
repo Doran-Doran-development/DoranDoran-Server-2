@@ -1,7 +1,27 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
+
+ROLE_CHOICES = getattr(settings, "ROLE_CHOICES")
+
+
+class UserManager(BaseUserManager):
+
+    use_in_migrations = True
+
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError("must have user email")
+        if not password:
+            raise ValueError("must have user password")
+        user = self.model(
+            email=self.normalize_email(email), **extra_fields
+        )  # name, role 정보
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractUser):
@@ -14,20 +34,15 @@ class User(AbstractUser):
     groups = None
     user_permissions = None
 
-    STUDENT = 1
-    TEACHER = 2
-    ADMIN = 3
-
-    ROLE_CHOICES = (
-        (STUDENT, "student"),
-        (TEACHER, "teacher"),
-        (ADMIN, "admin"),
-    )
+    objects = UserManager()
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, db_column="id")
     name = models.CharField(_("real name"), max_length=150, default="unknown")
     email = models.EmailField(_("email address"), unique=True, max_length=128)
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES)
+
+    USERNAME_FIELD = "id"
+    EMAIL_FIELD = "email"
 
 
 class StudentProfile(models.Model):
