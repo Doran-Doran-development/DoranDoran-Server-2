@@ -4,4 +4,4 @@ COPY . .
 RUN pip install -r requirements.txt
 EXPOSE 8000
 ENV DJANGO_SETTINGS_MODULE config.settings.deploy
-CMD ["gunicorn", "--bind","0.0.0.0:8000", "dorandoran.config.asgi:application", "-k", "uvicorn.workers.UvicornWorker"]
+CMD ["gunicorn", "config.asgi:application", "--bind", "127.0.0.1:8000", "-k", "uvicorn.workers.UvicornWorker"]
