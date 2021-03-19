@@ -7,6 +7,19 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = []
 
+ROLE_CHOICES = (
+    (1, "student"),
+    (2, "teacher"),
+    (3, "admin"),
+)
+
+STATUS_CHOICES = (
+    (1, "accepted"),
+    (2, "denied"),
+    (3, "waiting"),
+    (4, "expired"),
+)
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
