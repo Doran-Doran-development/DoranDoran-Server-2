@@ -17,6 +17,6 @@ class UserAPITest(TestCase):
             "classroom": 1,
         }
         # when
-        response = self.client.post("/users/", payload, format="json")
+        response = self.client.post("/users/teacher", payload, format="json")
         # then
         self.assertEqual(response.status_code, 201)
