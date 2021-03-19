@@ -42,7 +42,23 @@ class ApplyEscape(TestCase):
 
         self.token = response.json()["token"]
 
+        self.escapes_form = {
+            "reason": "발목이 다쳤습니다",
+            "start_at": "2021- 03-09:13",
+            "end_at": "2021-03-09:",
+        }
+
         def tearDown(self):
             User.objects.all().delete()
             StudentProfile.objects.all().delete()
             EscapeQueue.objects.all().delete()
+
+        def test_apply_escapes_success(self):
+            response = client.post(
+                "/escapes/",
+                self.escapes_form,
+                content_type="application/json",
+                HTTP_AUTHORIZATION="jwt " + self.token,
+            )
+
+            self.assertEqual(response.status_code, status.HTTP_201_CREATED)
