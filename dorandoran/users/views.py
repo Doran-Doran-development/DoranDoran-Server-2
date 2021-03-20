@@ -1,6 +1,6 @@
 from rest_framework import mixins, viewsets
 
-from .models import User
+from .models import User, TeacherProfile
 from .serializers import UserSerializer, TeacherProfileSerializer
 
 
@@ -11,6 +11,6 @@ class TeacherProfileViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = User.objects.all()
+    queryset = TeacherProfile.objects.select_related("user").all()
     serializer_class = TeacherProfileSerializer
     lookup_field = "id"
