@@ -1,6 +1,5 @@
 from .models import User, TeacherProfile, StudentProfile
 from rest_framework import serializers
-from .enums import UserRole
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -25,6 +24,24 @@ class TeacherProfileSerializer(serializers.ModelSerializer):
         validated_data["user"] = user_instance
         teacher_instance = TeacherProfile.objects.create(**validated_data)
         return teacher_instance
+
+    def validate(self, attrs):
+        return attrs
+
+
+class StudentProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=True)
+
+    class Meta:
+        model = StudentProfile
+        fields = "__all__"
+        read_only_fields = ("id", "user")
+
+    def create(self, validated_data):
+        user_instance = User.objects.create_student(**validated_data["user"])
+        validated_data["user"] = user_instance
+        student_instance = StudentProfile.objects.create(**validated_data)
+        return student_instance
 
     def validate(self, attrs):
         return attrs
