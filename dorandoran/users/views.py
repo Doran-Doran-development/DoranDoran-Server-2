@@ -16,7 +16,7 @@ class TeacherProfileViewSet(
 ):
     queryset = TeacherProfile.objects.select_related("user").all()
     serializer_class = TeacherProfileSerializer
-    lookup_field = "id"
+    lookup_field = "user_id"
 
 
 class StudentProfileViewSet(
@@ -28,4 +28,4 @@ class StudentProfileViewSet(
 ):
     queryset = StudentProfile.objects.select_related("user").all()
     serializer_class = StudentProfileSerializer
-    lookup_field = "id"
+    lookup_field = "user_id"
