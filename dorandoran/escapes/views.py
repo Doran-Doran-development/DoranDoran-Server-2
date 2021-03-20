@@ -11,7 +11,7 @@ class EscapeViewSet(viewsets.ViewSet):
     def create(self, request):
 
         obj = {
-            "applicant_id": request.user.id
+            "applicant_id": request.user.id,
             "reason": request.data["reason"],
             "start_at": request.data["start_at"],
             "end_at": request.data["end_at"],
