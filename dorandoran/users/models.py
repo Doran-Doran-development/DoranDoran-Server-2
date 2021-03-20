@@ -53,7 +53,11 @@ class User(AbstractUser):
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, default=None, db_column="user_id"
+        User,
+        on_delete=models.CASCADE,
+        default=None,
+        db_column="user_id",
+        primary_key=True,
     )
     entrance_year = models.IntegerField()
     classroom = models.IntegerField(null=False, default=0)
@@ -62,7 +66,11 @@ class StudentProfile(models.Model):
 
 class TeacherProfile(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, default=None, db_column="user_id"
+        User,
+        on_delete=models.CASCADE,
+        default=None,
+        db_column="user_id",
+        primary_key=True,
     )
     classroom = models.IntegerField(null=True)
     grade = models.IntegerField(null=True)
