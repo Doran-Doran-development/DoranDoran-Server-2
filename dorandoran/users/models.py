@@ -74,3 +74,8 @@ class TeacherProfile(models.Model):
     )
     classroom = models.IntegerField(null=True)
     grade = models.IntegerField(null=True)
+
+
+class TeacherCertificationCode(models.Model):
+    certification_code = models.CharField(max_length=20)
+    is_active = models.BooleanField(default=True)
