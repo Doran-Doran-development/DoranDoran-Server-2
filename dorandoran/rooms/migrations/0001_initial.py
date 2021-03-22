@@ -9,21 +9,32 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Room',
+            name="Room",
             fields=[
-                ('id', models.AutoField(db_column='id', primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=50)),
-                ('status', models.BooleanField(default=False)),
-                ('capacity', models.IntegerField()),
-                ('description', models.TextField(null=True)),
-                ('image', models.CharField(max_length=255, null=True)),
-                ('available_time', models.CharField(max_length=50, null=True)),
-                ('owner_id', models.ForeignKey(db_column='owner_id', null=True, on_delete=django.db.models.deletion.SET_NULL, to='users.user')),
+                (
+                    "id",
+                    models.AutoField(db_column="id", primary_key=True, serialize=False),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("status", models.BooleanField(default=False)),
+                ("capacity", models.IntegerField()),
+                ("description", models.TextField(null=True)),
+                ("image", models.CharField(max_length=255, null=True)),
+                ("available_time", models.CharField(max_length=50, null=True)),
+                (
+                    "owner_id",
+                    models.ForeignKey(
+                        db_column="owner_id",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="users.user",
+                    ),
+                ),
             ],
         ),
     ]

@@ -9,21 +9,49 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('rooms', '0001_initial'),
-        ('teams', '0001_initial'),
+        ("rooms", "0001_initial"),
+        ("teams", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ReservationQueue',
+            name="ReservationQueue",
             fields=[
-                ('id', models.AutoField(db_column='id', primary_key=True, serialize=False)),
-                ('time', models.IntegerField()),
-                ('date', models.DateTimeField()),
-                ('status', models.PositiveSmallIntegerField(choices=[(1, 'accepted'), (2, 'denied'), (3, 'waiting'), (4, 'expired')], default=3)),
-                ('description', models.CharField(max_length=256)),
-                ('room_id', models.ForeignKey(db_column='room_id', on_delete=django.db.models.deletion.CASCADE, to='rooms.room')),
-                ('team_id', models.ForeignKey(db_column='team_id', on_delete=django.db.models.deletion.CASCADE, to='teams.team')),
+                (
+                    "id",
+                    models.AutoField(db_column="id", primary_key=True, serialize=False),
+                ),
+                ("time", models.IntegerField()),
+                ("date", models.DateTimeField()),
+                (
+                    "status",
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (1, "accepted"),
+                            (2, "denied"),
+                            (3, "waiting"),
+                            (4, "expired"),
+                        ],
+                        default=3,
+                    ),
+                ),
+                ("description", models.CharField(max_length=256)),
+                (
+                    "room_id",
+                    models.ForeignKey(
+                        db_column="room_id",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="rooms.room",
+                    ),
+                ),
+                (
+                    "team_id",
+                    models.ForeignKey(
+                        db_column="team_id",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="teams.team",
+                    ),
+                ),
             ],
         ),
     ]

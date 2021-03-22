@@ -6,7 +6,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = []
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+AUTH_USER_MODEL = "users.User"
+
+ROLE_CHOICES = (
+    (1, "student"),
+    (2, "teacher"),
+    (3, "admin"),
+)
+
+STATUS_CHOICES = (
+    (1, "accepted"),
+    (2, "denied"),
+    (3, "waiting"),
+    (4, "expired"),
+)
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -91,3 +106,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")

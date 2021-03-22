@@ -22,11 +22,11 @@ from rest_framework import permissions
 
 
 schema_url_patterns = [
-    path("users/", include("users.urls")),
-    path("reservations/", include("reservations.urls")),
-    path("rooms/", include("rooms.urls")),
-    path("teams/", include("teams.urls")),
-    path("escapes/", include("escapes.urls")),
+    path("users", include("users.urls")),
+    path("reservations", include("reservations.urls")),
+    path("rooms", include("rooms.urls")),
+    path("teams", include("teams.urls")),
+    path("escapes", include("escapes.urls")),
 ]
 
 
@@ -44,9 +44,7 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-]
+urlpatterns = []
 
 if settings.DEBUG:
     urlpatterns += [
@@ -64,3 +62,4 @@ if settings.DEBUG:
             "docs/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
         ),
     ]
+urlpatterns += schema_url_patterns
