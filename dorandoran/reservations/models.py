@@ -1,18 +1,10 @@
 from django.db import models
+from django.conf import settings
+
+STATUS_CHOICES = getattr(settings, "STATUS_CHOICES")
 
 
 class ReservationQueue(models.Model):
-    ACCEPTED = 1
-    DENIED = 2
-    WAITING = 3
-    EXPIRED = 4
-
-    STATUS_CHOICES = (
-        (ACCEPTED, "accepted"),
-        (DENIED, "denied"),
-        (WAITING, "waiting"),
-        (EXPIRED, "expired"),
-    )  # TODO : base.py 에서 처리하도록 하자
 
     id = models.AutoField(primary_key=True, db_column="id")
     team_id = models.ForeignKey(

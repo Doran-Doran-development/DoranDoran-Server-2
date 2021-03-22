@@ -1,16 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
-# Create your models here.
+STATUS_CHOICES = getattr(settings, "STATUS_CHOICES")
 
 
 class EscapeQueue(models.Model):
-    STATUS_CHOICES = (
-        (1, "accepted"),
-        (2, "denied"),
-        (3, "waiting"),
-        (4, "expired"),
-    )
+
     id = models.AutoField(primary_key=True, db_column="id")
     applicant_id = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, db_column="applicant_id"
@@ -23,7 +19,7 @@ class EscapeQueue(models.Model):
     end_at = models.DateTimeField(_("end time"))
 
     class Meta:
-        db_table = u"EscapeQueue"
+        db_table = u"escape_queue"
 
     def __str__(self):
         return self.id, self.applicant_id
