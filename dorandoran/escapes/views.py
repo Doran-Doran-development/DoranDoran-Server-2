@@ -26,7 +26,7 @@ class EscapeViewSet(
         serializer = EscapeQueueSerializer(data=obj)
 
         if not serializer.is_valid():
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         serializer.save()
 

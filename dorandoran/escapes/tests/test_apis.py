@@ -1,4 +1,5 @@
-from django.test import TestCase, Client
+from django.test import TestCase
+from rest_framework.test import APIClient
 from rest_framework import status
 from escapes.models import EscapeQueue
 from users.models import User, StudentProfile, TeacherProfile
@@ -7,11 +8,11 @@ from django.contrib.auth.hashers import make_password
 import uuid
 import json
 
-client = Client()
-
 
 class ApplyEscape(TestCase):
     def setUp(self):
+
+        self.client = APIClient()
 
         student_id = uuid.uuid4
 
@@ -55,7 +56,7 @@ class ApplyEscape(TestCase):
 
         def test_apply_escapes_success(self):
             response = client.post(
-                "/escapes/",
+                "/escapes",
                 self.escapes_form,
                 content_type="application/json",
                 HTTP_AUTHORIZATION="jwt " + self.token,
@@ -68,7 +69,7 @@ class ApplyEscape(TestCase):
             del escape["reason"]
 
             response = client.post(
-                "/escapes/",
+                "/escapes",
                 escape,
                 content_type="application/json",
                 HTTP_AUTHORIZATION="jwt " + self.token,
