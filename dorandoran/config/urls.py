@@ -22,6 +22,7 @@ from rest_framework import permissions
 
 
 schema_url_patterns = [
+    path("auth", include("auth.urls")),
     path("users", include("users.urls")),
     path("reservations", include("reservations.urls")),
     path("rooms", include("rooms.urls")),
