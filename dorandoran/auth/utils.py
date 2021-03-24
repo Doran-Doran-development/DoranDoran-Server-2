@@ -39,3 +39,7 @@ def jwt_payload_handler(user):
 
 def jwt_response_payload_handler(token, user=None, request=None):
     return {"user": user, "token": token}
+
+
+def jwt_get_username_from_payload_handler(payload):
+    return payload.get(UserModel.USERNAME_FIELD)
