@@ -50,10 +50,20 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+}
+
 JWT_AUTH = {
     "JWT_ENCODE_HANDLER": "auth.utils.jwt_encode_handler",
     "JWT_DECODE_HANDLER": "auth.utils.jwt_decode_handler",
     "JWT_PAYLOAD_HANDLER": "auth.utils.jwt_payload_handler",
+    "JWT_PAYLOAD_GET_USERNAME_HANDLER": "auth.utils.jwt_get_username_from_payload_handler",
     "JWT_RESPONSE_PAYLOAD_HANDLER": "auth.utils.jwt_response_payload_handler",
     "JWT_SECRET_KEY": os.getenv("JWT_SECRET_KEY"),
     "JWT_GET_USER_SECRET_KEY": None,
