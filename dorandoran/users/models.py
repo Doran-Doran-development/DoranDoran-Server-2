@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from .enums import UserRole
 
@@ -30,25 +30,18 @@ class UserManager(BaseUserManager):
         return self.create_user(email=email, password=password, **extra_fields)
 
 
-class User(AbstractUser):
-    first_name = None
-    last_login = None
-    last_name = None
-    username = None
-    is_staff = None
-    is_superuser = None
-    groups = None
-    user_permissions = None
-
+class User(AbstractBaseUser):
     objects = UserManager()
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, db_column="id")
     name = models.CharField(_("real name"), max_length=150, default="unknown")
     email = models.EmailField(_("email address"), unique=True, max_length=128)
     role = models.PositiveSmallIntegerField(choices=UserRole.choices())
+    is_active = models.BooleanField(default=False)
 
-    USERNAME_FIELD = "id"
+    USERNAME_FIELD = "email"
     EMAIL_FIELD = "email"
+    REQUIRED_FIELDS = []
 
 
 class StudentProfile(models.Model):
