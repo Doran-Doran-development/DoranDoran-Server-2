@@ -3,9 +3,9 @@ from rest_framework.routers import DefaultRouter
 
 from .views import EscapeViewSet
 
-router = DefaultRouter(trailing_slash=False)
-router.register(r"", EscapeViewSet, basename="escapes")
 
+router = DefaultRouter(trailing_slash=False)
+router.register("", EscapeViewSet, basename="escapes")
 urlpatterns = [
-    path("", include(router.urls)),
+    path("/", include(router.urls)),
 ]

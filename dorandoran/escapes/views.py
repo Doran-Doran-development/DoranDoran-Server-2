@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins
 from rest_framework import status
+from rest_framework.decorators import action
 from django.core import serializers
 
 from .serializers import EscapeQueueSerializer
@@ -13,11 +14,12 @@ from datetime import datetime
 
 class EscapeViewSet(
     mixins.CreateModelMixin,
-    mixins.DestroyModelMixin,
     mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
+    serializer_class = EscapeQueueSerializer
+    queryset = EscapeQueue.objects.all()
+
     def create(self, request, *args, **kwargs):
 
         obj = {
@@ -72,3 +74,21 @@ class EscapeViewSet(
             result.append(obj)
 
         return Response(result, status=200)
+
+    @action(detail=True, methods=["PATCH"])
+    def accept(self, request, pk):
+
+        instance = self.get_object()
+        instance.status = 1
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=["PATCH"])
+    def deny(self, request, pk):
+
+        instance = self.get_object()
+        instance.status = 2
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
