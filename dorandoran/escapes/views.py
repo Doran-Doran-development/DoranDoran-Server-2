@@ -15,6 +15,7 @@ from datetime import datetime
 class EscapeViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
+    mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
     serializer_class = EscapeQueueSerializer
@@ -92,3 +93,9 @@ class EscapeViewSet(
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        res = {"id": instance.pk}
+        self.perform_destroy(instance)
+        return Response(res, status=status.HTTP_204_NO_CONTENT)
