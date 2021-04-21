@@ -66,7 +66,7 @@ TEMPLATES = [
         },
     },
 ]
-APPEND_SLASH = True
+
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Password validation
