@@ -154,4 +154,5 @@ dmypy.json
 
 .idea/
 .vscode
-staticfiles/
+.static/
+*.splite3
