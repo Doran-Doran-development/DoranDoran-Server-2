@@ -37,7 +37,8 @@ pipeline {
             steps {
                 echo 'Stop and Remove existed container'
                 sh '''
-                if [ -z $(docker ps -f name=${CONTAINER_NAME} -q -a) ] ; then
+                if [ -n $(docker ps -f name=${CONTAINER_NAME} -q -a) ]
+                then
                     sudo docker stop $(docker ps -f name=${CONTAINER_NAME} -q -a)
                     sudo docker rm $(docker ps -f name=${CONTAINER_NAME} -q -a)
                 fi
