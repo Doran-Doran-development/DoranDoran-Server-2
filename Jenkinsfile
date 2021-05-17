@@ -18,7 +18,7 @@ pipeline {
             agent any
 
             steps {
-                export SECRET_KEY="${SECRET_KEY}" DATABASE_URL="${DATABASE_URL}" JWT_SECRET_KEY="${JWT_SECRET_KEY}" JWT_ALGORITHM="${JWT_ALGORITHM}" DJANGO_SETTINGS_MODULE="${DJANGO_SETTINGS_MODULE}"
+                export SECRET_KEY="${env.SECRET_KEY}" DATABASE_URL="${env.DATABASE_URL}" JWT_SECRET_KEY="${env.JWT_SECRET_KEY}" JWT_ALGORITHM="${env.JWT_ALGORITHM}" DJANGO_SETTINGS_MODULE="${env.DJANGO_SETTINGS_MODULE}"
             }
         }
 
