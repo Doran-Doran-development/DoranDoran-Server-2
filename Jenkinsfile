@@ -38,7 +38,11 @@ pipeline {
                 echo 'Deploy Backend'
 
                 sh '''
-                sudo docker run -p 81:8000 -d dorandoran-server
+                sudo docker run -p 81:8000 -d dorandoran-server -e DATABASE_URL=${DATABASE_URL} \
+                -e SECRET_KEY=${SECRET_KEY} \
+                -e JWT_SECRET_KEY=${JWT_SECRET_KEY} \
+                -e JWT_ALGORITHM=${JWT_ALGORITHM} \
+                -e DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
                 '''
             }
 
