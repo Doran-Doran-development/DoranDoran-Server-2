@@ -5,6 +5,10 @@ pipeline {
         pollSCM('*/3 * * * *')
     }
 
+    environment {
+        SECRET_KEY = 'testkey'
+    }
+
     stages {
         stage('Prepare') {
             agent any
