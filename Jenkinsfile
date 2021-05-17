@@ -23,7 +23,7 @@ pipeline {
         }
 
         stage('Prepare') {
-            agent anyW
+            agent any
 
             steps {
                 echo 'Clonning Repository'
