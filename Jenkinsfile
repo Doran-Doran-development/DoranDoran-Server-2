@@ -23,27 +23,33 @@ pipeline {
         stage('Build Image') {
             agent any
             steps {
-                echo "Build Backend Image"
+                echo 'Build Backend Image'
 
-                sh """
-                sudo docker build . -t dorandoran-server
-                """
+                sh '''
+                sudo docker build . -t ${IMAGE_NAME}
+                '''
             }
         }
         
-        stage('Deploy') {
+        stage('Deploy Container') {
             agent any
 
             steps {
-                echo 'Deploy Backend'
-
+                echo 'Stop and Remove existed container'
                 sh '''
-                sudo docker run -p 81:8000 -d -e DATABASE_URL=${DATABASE_URL} \
+                sudo docker stop $(docker ps -f name=${CONTAINER_NAME} -q)
+                sudo docker rm $(docker ps -f name=${CONTAINER_NAME} -q)
+                '''
+                
+                echo 'Run new container'
+                sh '''
+                sudo docker run --name ${CONTAINER_NAME} -p ${EXTERNAL_PORT}:8000 -d \
+                -e DATABASE_URL=${DATABASE_URL} \
                 -e SECRET_KEY=${SECRET_KEY} \
                 -e JWT_SECRET_KEY=${JWT_SECRET_KEY} \
                 -e JWT_ALGORITHM=${JWT_ALGORITHM} \
                 -e DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE} \
-                dorandoran-server
+                ${IMAGE_NAME}
                 '''
             }
 
