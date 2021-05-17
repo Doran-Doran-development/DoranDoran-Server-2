@@ -9,8 +9,8 @@ pipeline {
         SECRET_KEY = credentials('dorandoranSecretKey')
         DATABASE_URL = credentials('dorandoranDatabaseUrl')
         JWT_SECRET_KEY = credentials('dorandoranJwtSecretKey')
-        JWT_ALGORITHM = 'HS256'
         DJANGO_SETTINGS_MODULE = credentials('dorandoranDjangoSettingsModule')
+        JWT_ALGORITHM = credentials('dorandoranJwtAlgorithm')
     }
 
     stages {
