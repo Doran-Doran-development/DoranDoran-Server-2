@@ -25,7 +25,7 @@ pipeline {
                 echo "Build Backend Image"
 
                 sh """
-                docker build . -t dorandoran-server
+                sudo docker build . -t dorandoran-server
                 """
             }
         }
@@ -37,8 +37,14 @@ pipeline {
                 echo 'Deploy Backend'
 
                 sh '''
-                docker run -p 81:8000 -d dorandoran-server
+                sudo docker run -p 81:8000 -d dorandoran-server
                 '''
+            }
+
+            post {
+                failure {
+                    echo 'I failed'
+                }
             }
         }
     }
