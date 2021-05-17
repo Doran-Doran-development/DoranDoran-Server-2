@@ -37,11 +37,7 @@ pipeline {
             steps {
                 echo 'Stop and Remove existed container'
                 sh '''
-                if [ -n $(docker ps -f name=${CONTAINER_NAME} -q -a) ]
-                then
-                    sudo docker stop $(docker ps -f name=${CONTAINER_NAME} -q -a)
-                    sudo docker rm $(docker ps -f name=${CONTAINER_NAME} -q -a)
-                fi
+                docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true
                 '''
                 
                 echo 'Run new container'
