@@ -6,12 +6,24 @@ pipeline {
     }
 
     environment {
-        SECRET_KEY = 'testkey'
+        SECRET_KEY = credentials('dorandoranSecretKey')
+        DATABASE_URL = credentials('dorandoranDatabaseUrl')
+        JWT_SECRET_KEY = credentials('dorandoranJwtSecretKey')
+        JWT_ALGORITHM = 'HS256'
+        DJANGO_SETTINGS_MODULE = credentials('dorandoranDjangoSettingsModule')
     }
 
     stages {
-        stage('Prepare') {
+        stage('Environ variable') {
             agent any
+
+            steps {
+                export SECRET_KEY=${SECRET_KEY} DATABASE_URL=${DATABASE_URL} JWT_SECRET_KEY=${JWT_SECRET_KEY} JWT_ALGORITHM=${JWT_ALGORITHM} DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+            }
+        }
+
+        stage('Prepare') {
+            agent anyW
 
             steps {
                 echo 'Clonning Repository'
