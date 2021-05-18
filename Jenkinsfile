@@ -37,7 +37,7 @@ pipeline {
             steps {
                 echo 'Stop and Remove existed container'
                 sh '''
-                docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true
+                sudo docker stop ${CONTAINER_NAME} || true && sudo docker rm ${CONTAINER_NAME} || true
                 '''
                 
                 echo 'Run new container'
