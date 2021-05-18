@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.exceptions import APIException
 from users.serializers import UserSerializer
 from django.contrib.auth import authenticate
 from .utils import jwt_payload_handler, jwt_encode_handler, jwt_response_payload_handler
@@ -17,9 +16,8 @@ class ObtainTokenSerializer(serializers.Serializer):
             "email": attrs.get("email", None),
             "password": attrs.get("password", None),
         }
-        user = authenticate(**credentials)  # TODO : 유저 존재 유무 에러와 이메일 인증 유무 에러 분리
-        if user is None:
-            raise APIException(detail="Email or password is incorrect or not authenticated as email", code=400)
+        user = authenticate(**credentials)
+
         payload = jwt_payload_handler(user)
         token = jwt_encode_handler(payload)
         return jwt_response_payload_handler(user=UserSerializer(user).data, token=token)
