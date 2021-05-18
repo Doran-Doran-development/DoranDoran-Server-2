@@ -14,13 +14,15 @@ class UserBackend(BaseBackend):
             user = UserModel._default_manager.get_by_natural_key(username)
         except UserModel.DoesNotExist:
             raise exceptions.ValidationError("No matching user found for email")
-        
+
         if not user.check_password(password):
             raise exceptions.ValidationError("Incorrect password")
-        
+
         if not self.user_can_authenticate(user):
-            raise exceptions.ValidationError("This user is not active. Please verify your e-mail.")
-        
+            raise exceptions.ValidationError(
+                "This user is not active. Please verify your e-mail."
+            )
+
         return user
 
     def user_can_authenticate(self, user):
