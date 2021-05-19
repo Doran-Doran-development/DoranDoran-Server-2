@@ -26,17 +26,17 @@ GSM 교내 서비스 **도란도란**은 두 가지 기능을 가지고 있습�
 이런 **공간**을 효율적으로 **관리**하고 **예약 기능을** 위한  **공간 관리 기능**을 제공하고 있습니다.
 
 ### :gear: 사용한 기술
-##### Backend
+#### Backend
 
 <div>
 <img src="https://img.shields.io/badge/Django-092E20?style=flat&logo=Django&logoColor=white"/></a></a>
 <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"/></a></a>
-<img src="https://img.shields.io/badge/boto3-FFCA28?style=flat&logo=Amazon AWS&logoColor=white"/></a></a>
+<img src="https://img.shields.io/badge/boto3-FFCA28?style=flat&logo=Amazon%20AWS&logoColor=white"/></a></a>
 </div>
 
-##### DevOps
+#### DevOps
 <div>
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat&logo=Amazon S3&logoColor=white"/></a></a>
+<img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=flat&logo=Amazon%20S3&logoColor=white"/></a></a>
 </div>
 
 <div>
@@ -48,14 +48,14 @@ GSM 교내 서비스 **도란도란**은 두 가지 기능을 가지고 있습�
 
 <div>
 <img src="https://img.shields.io/badge/Github-181717?style=flat&logo=Github&logoColor=white"/></a></a>
-<img src="https://img.shields.io/badge/Github actions-2088FF?style=flat&logo=Github actions&logoColor=white"/></a></a>
+<img src="https://img.shields.io/badge/Github%20actions-2088FF?style=flat&logo=Github%20actions&logoColor=white"/></a></a>
 <img src="http://img.shields.io/badge/Swagger-85EA2D?style=flat&logo=Swagger&logoColor=white"/></a></a>
 
 
 </div>
 
-##### Database
+#### Database
 <div>
-<img src="https://img.shields.io/badge/AWS RDS-232F3E?style=flat&logo=Amazon AWS&logoColor=white"/></a></a>
+<img src="https://img.shields.io/badge/AWS%20RDS-232F3E?style=flat&logo=Amazon%20AWS&logoColor=white"/></a></a>
 <img src="https://img.shields.io/badge/Mysql-4479A1?style=flat&logo=Mysql&logoColor=white"/></a></a>
 </div>
