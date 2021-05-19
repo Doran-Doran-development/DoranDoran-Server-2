@@ -17,6 +17,7 @@ class EscapeQueue(models.Model):
     )
     start_at = models.DateTimeField(_("start time"))
     end_at = models.DateTimeField(_("end time"))
+    created_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = u"escape_queue"

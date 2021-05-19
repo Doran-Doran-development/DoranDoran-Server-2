@@ -66,8 +66,16 @@ class EscapeViewSet(
         for user in users:
             user_id.append(user.pk)
 
-        escapes = EscapeQueue.objects.select_related("applicant_id").filter(
-            applicant_id__in=user_id
+        today = datetime.today()
+
+        escapes = (
+            EscapeQueue.objects.select_related("applicant_id")
+            .filter(applicant_id__in=user_id)
+            .filter(
+                created_at__year=str(today.year),
+                created_at__month=str(today.month),
+                created_at__day=str(today.day),
+            )
         )
 
         result = []
@@ -96,7 +104,7 @@ class EscapeViewSet(
 
     @action(detail=True, methods=["PATCH"])
     def deny(self, request, pk):
-      
+
         instance = self.get_object()
         instance.status = 2
         instance.save()
@@ -104,7 +112,7 @@ class EscapeViewSet(
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
-      
+
         instance = self.get_object()
         res = {"id": instance.pk}
         self.perform_destroy(instance)
