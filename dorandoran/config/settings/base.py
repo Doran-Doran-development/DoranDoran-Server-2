@@ -50,7 +50,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+AUTHENTICATION_BACKENDS = ["auth.backends.UserBackend"]
+
+
 REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "core.utils.custom_exception_handler",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
     ],

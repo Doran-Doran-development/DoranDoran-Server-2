@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.exceptions import APIException
 from users.serializers import UserSerializer
 from django.contrib.auth import authenticate
 from .utils import jwt_payload_handler, jwt_encode_handler, jwt_response_payload_handler
@@ -18,8 +17,7 @@ class ObtainTokenSerializer(serializers.Serializer):
             "password": attrs.get("password", None),
         }
         user = authenticate(**credentials)
-        if user is None:
-            raise APIException(detail="Can't find user instance", code=400)
+
         payload = jwt_payload_handler(user)
         token = jwt_encode_handler(payload)
         return jwt_response_payload_handler(user=UserSerializer(user).data, token=token)
