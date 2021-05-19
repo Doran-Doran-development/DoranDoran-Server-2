@@ -1,5 +1,5 @@
 <p align="center">
-<img src="images/readme-logo.png" width="70%" height="70%">
+ <a><img src="images/readme-logo.png" width="70%" height="70%"></a>
 </p>
 
 *GSM 회의실 예약 관리 및 학생 이동 관리 서비스*, **`도란도란`** *의 백엔드 레포지토리 입니다*.
