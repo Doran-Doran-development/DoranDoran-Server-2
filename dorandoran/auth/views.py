@@ -9,8 +9,7 @@ class ObtainTokenView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
-        if not serializer.is_valid(raise_exception=True):
-            return Response(serializer.errors, status=400)
+        serializer.is_valid(raise_exception=True)
 
         response_data = serializer.validated_data
         response = Response(response_data)
