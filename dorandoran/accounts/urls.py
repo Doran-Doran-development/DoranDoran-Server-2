@@ -5,7 +5,7 @@ app_name = "accounts"
 urlpatterns = [
     path("/login", ObtainTokenView.as_view()),
     path(
-        "/activate/<slug:uid64>/<slug:token>",
+        "/activate/<slug:uidb64>/<slug:token>",
         ActivateAccountView.as_view(),
         name="activate",
     ),
