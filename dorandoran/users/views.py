@@ -37,7 +37,7 @@ class BaseProfileViewSet(
         )
 
         send_mail(
-            subject="Activate your DoranDoran account.",
+            subject="도란도란 계정 이메일 인증 요청",
             message=strip_tags(html_message),
             html_message=html_message,
             from_email=None,
