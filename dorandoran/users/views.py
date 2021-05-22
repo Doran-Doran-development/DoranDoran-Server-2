@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
+from django.utils.html import strip_tags
 from django.utils.encoding import force_bytes
 from core.email_verification import account_activation_token
 from .models import TeacherProfile, StudentProfile
@@ -39,7 +40,7 @@ class StudentProfileViewSet(
         user_instance = serializer.save()
         current_site = get_current_site(self.request)
 
-        message = render_to_string(
+        html_message = render_to_string(
             "email/email-verification.html",
             {
                 "user": user_instance.user,
@@ -51,7 +52,8 @@ class StudentProfileViewSet(
 
         send_mail(
             subject="Activate your DoranDoran account.",
-            message=message,
+            message=strip_tags(html_message),
+            html_message=html_message,
             from_email=None,
             recipient_list=[user_instance.user.email],
             fail_silently=False,
