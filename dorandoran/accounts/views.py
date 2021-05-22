@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.utils.http import urlsafe_base64_decode
 from .serializers import ObtainTokenSerializer
 from users.serializers import UserSerializer
-from core.email_verification import account_activation_token
+from core.token import account_activation_token
 
 
 UserModel = get_user_model()
