@@ -13,27 +13,13 @@ from .serializers import (
 )
 
 
-class TeacherProfileViewSet(
+class BaseProfileViewSet(
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = TeacherProfile.objects.select_related("user").all()
-    serializer_class = TeacherProfileSerializer
-    lookup_field = "user_id"
-
-
-class StudentProfileViewSet(
-    mixins.CreateModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.DestroyModelMixin,
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet,
-):
-    queryset = StudentProfile.objects.select_related("user").all()
-    serializer_class = StudentProfileSerializer
     lookup_field = "user_id"
 
     def perform_create(self, serializer):
@@ -58,3 +44,13 @@ class StudentProfileViewSet(
             recipient_list=[user_instance.user.email],
             fail_silently=False,
         )
+
+
+class TeacherProfileViewSet(BaseProfileViewSet):
+    queryset = TeacherProfile.objects.select_related("user").all()
+    serializer_class = TeacherProfileSerializer
+
+
+class StudentProfileViewSet(BaseProfileViewSet):
+    queryset = StudentProfile.objects.select_related("user").all()
+    serializer_class = StudentProfileSerializer
