@@ -14,7 +14,7 @@ pipeline {
                 echo 'Clonning Repository'
 
                 git url: 'https://github.com/Doran-Doran-development/DoranDoran-Server-2.git',
-                    branch : 'release/1.0',
+                    branch : 'develop',
                     credentialsId: 'githubTokenForJenkinshanbin8269'
             }
 
