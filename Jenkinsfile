@@ -48,8 +48,8 @@ pipeline {
                 -e JWT_SECRET_KEY=${JWT_SECRET_KEY} \
                 -e JWT_ALGORITHM=${JWT_ALGORITHM} \
                 -e DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE} \
-                -e EMAIL_HOST_USER=${EMAIL_HOST_USER}
-                -e EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+                -e EMAIL_HOST_USER=${EMAIL_HOST_USER} \
+                -e EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD} \
                 ${IMAGE_NAME}
                 '''
             }
