@@ -18,6 +18,7 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email), **extra_fields
         )  # name, role 정보
         user.set_password(password)
+        user.is_active = False
         user.save(using=self._db)
         return user
 

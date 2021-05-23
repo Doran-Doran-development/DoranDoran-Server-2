@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "rooms",
     "teams",
     "reservations",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -50,7 +51,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-AUTHENTICATION_BACKENDS = ["auth.backends.UserBackend"]
+AUTHENTICATION_BACKENDS = ["accounts.backends.UserBackend"]
 
 
 REST_FRAMEWORK = {
@@ -64,11 +65,11 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {
-    "JWT_ENCODE_HANDLER": "auth.utils.jwt_encode_handler",
-    "JWT_DECODE_HANDLER": "auth.utils.jwt_decode_handler",
-    "JWT_PAYLOAD_HANDLER": "auth.utils.jwt_payload_handler",
-    "JWT_PAYLOAD_GET_USERNAME_HANDLER": "auth.utils.jwt_get_username_from_payload_handler",
-    "JWT_RESPONSE_PAYLOAD_HANDLER": "auth.utils.jwt_response_payload_handler",
+    "JWT_ENCODE_HANDLER": "accounts.utils.jwt_encode_handler",
+    "JWT_DECODE_HANDLER": "accounts.utils.jwt_decode_handler",
+    "JWT_PAYLOAD_HANDLER": "accounts.utils.jwt_payload_handler",
+    "JWT_PAYLOAD_GET_USERNAME_HANDLER": "accounts.utils.jwt_get_username_from_payload_handler",
+    "JWT_RESPONSE_PAYLOAD_HANDLER": "accounts.utils.jwt_response_payload_handler",
     "JWT_SECRET_KEY": os.getenv("JWT_SECRET_KEY"),
     "JWT_GET_USER_SECRET_KEY": None,
     "JWT_PUBLIC_KEY": None,
@@ -88,10 +89,12 @@ JWT_AUTH = {
 
 ROOT_URLCONF = "config.urls"
 
+TEMPLATE_DIRS = [os.path.join(os.path.dirname(BASE_DIR), "templates")]
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(os.path.dirname(BASE_DIR), "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -124,9 +127,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LANGUAGE_CODE = "en-us"
 
