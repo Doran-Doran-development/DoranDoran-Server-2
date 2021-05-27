@@ -2,7 +2,7 @@ from rest_framework.permissions import BasePermission
 from users.enums import UserRole
 
 
-class IsOwnerOrAdmin(BasePermission):
+class IsOwner(BasePermission):
     def has_permission(self, request, view):
         if request.user.is_anonymous:
             return False
@@ -21,3 +21,8 @@ class IsStudent(BasePermission):
         if request.user.is_anonymous:
             return False
         return request.user.role == UserRole.STUDENT
+
+
+class AllowAny(BasePermission):
+    def has_permission(self, request, view):
+        return True
