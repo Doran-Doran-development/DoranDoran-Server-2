@@ -5,12 +5,16 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.html import strip_tags
 from django.utils.encoding import force_bytes
+from django.contrib.auth import get_user_model
 from core.token import account_activation_token
 from .models import TeacherProfile, StudentProfile
 from .serializers import (
     TeacherProfileSerializer,
     StudentProfileSerializer,
 )
+
+
+UserModel = get_user_model()
 
 
 class BaseProfileViewSet(
@@ -44,6 +48,11 @@ class BaseProfileViewSet(
             recipient_list=[user_instance.user.email],
             fail_silently=False,
         )
+
+    def perform_destroy(self, instance):
+        user_instance = UserModel.objects.get(id=instance.user_id)
+        user_instance.delete()
+        instance.delete()
 
 
 class TeacherProfileViewSet(BaseProfileViewSet):
