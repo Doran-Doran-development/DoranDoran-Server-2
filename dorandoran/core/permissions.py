@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission
-from .enums import UserRole
+from users.enums import UserRole
 
 
 class IsOwnerOrAdmin(BasePermission):
