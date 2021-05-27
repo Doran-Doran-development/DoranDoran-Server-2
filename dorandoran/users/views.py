@@ -6,7 +6,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.html import strip_tags
 from django.utils.encoding import force_bytes
 from django.contrib.auth import get_user_model
-from core.token import account_activation_token
+from core import permissions, token
 from .models import TeacherProfile, StudentProfile
 from .serializers import (
     TeacherProfileSerializer,
@@ -26,6 +26,14 @@ class BaseProfileViewSet(
 ):
     lookup_field = "user_id"
 
+    def get_permissions(self):
+        if self.action in ("create", "list"):
+            permission_classes = [permissions.AllowAny]
+        elif self.action in ("delete",):
+            permission_classes = [permissions.IsOwner]
+
+        return [permission() for permission in permission_classes]
+
     def perform_create(self, serializer):
         user_instance = serializer.save()
         current_site = get_current_site(self.request)
@@ -36,7 +44,7 @@ class BaseProfileViewSet(
                 "user": user_instance.user,
                 "domain": current_site.domain,
                 "uid": urlsafe_base64_encode(force_bytes(user_instance.user.pk)),
-                "token": account_activation_token.make_token(user_instance.user),
+                "token": token.account_activation_token.make_token(user_instance.user),
             },
         )
 
