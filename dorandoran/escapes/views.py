@@ -8,7 +8,7 @@ from django.core import serializers
 from .serializers import EscapeQueueSerializer
 from .models import EscapeQueue
 from users.models import User, StudentProfile
-from users.permissions import IsTeacher, IsStudent
+from core import permissions
 
 from datetime import datetime
 
@@ -24,9 +24,13 @@ class EscapeViewSet(
 
     def get_permissions(self):
         if self.action in ("create",):
-            permission_classes = [IsStudent]
-        elif self.action in ("list", "accept", "deny"):
-            permission_classes = [IsTeacher]
+            permission_classes = [permissions.IsStudent]
+        elif self.action in ("list", "retrieve"):
+            permission_classes = [permissions.AllowAny]
+        elif self.action in ("accept", "deny"):
+            permission_classes = [permissions.IsTeacher]
+        elif self.action in ("destroy",):
+            permission_classes = [permissions.IsTeacher | permissions.IsOwner]
 
         return [permission() for permission in permission_classes]
 
