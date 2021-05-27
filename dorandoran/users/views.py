@@ -27,7 +27,7 @@ class BaseProfileViewSet(
     lookup_field = "user_id"
 
     def get_permissions(self):
-        if self.action in ("create", "list"):
+        if self.action in ("create", "list", "retrieve"):
             permission_classes = [permissions.AllowAny]
         elif self.action in ("delete",):
             permission_classes = [permissions.IsOwner]
