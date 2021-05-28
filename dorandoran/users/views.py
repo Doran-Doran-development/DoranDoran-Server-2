@@ -29,7 +29,7 @@ class BaseProfileViewSet(
     def get_permissions(self):
         if self.action in ("create", "list", "retrieve"):
             permission_classes = [permissions.AllowAny]
-        elif self.action in ("delete",):
+        elif self.action in ("destroy",):
             permission_classes = [permissions.IsOwner]
 
         return [permission() for permission in permission_classes]
