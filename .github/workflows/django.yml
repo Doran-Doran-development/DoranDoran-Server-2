@@ -25,4 +25,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run django test
-        run: cd ./dorandoran | python ./manage.py test
+        run: (cd /dorandoran && python manage.py test)
