@@ -141,7 +141,29 @@ class TeacherAPITest(BaseUserAPITest, TestCase):
         )
         # then
         self.assertEqual(response.status_code, 201)
-
+    
+    def test_create_user_certification_code_fail(self):
+        # given
+        payload = {
+            "user": {
+                "email": "teacher1@example.com",
+                "password": "1234",
+                "name": "teacher1",
+            },
+            "entrance_year": 2021,
+            "grade": 1,
+            "classroom": 1,
+            "number": 1,
+            "certification_code" : self.fixture_certification_code.certification_code + "NOISE"
+        }
+        # when
+        response = self.client.post(
+            path="/users/teacher",
+            data=payload,
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 400)
 
     def test_retrieve_user_success(self):
         # when
