@@ -96,3 +96,13 @@ class StudentAPITest(BaseUserAPITest, TestCase):
         )
         # then
         self.assertEqual(response.status_code, 204)
+
+    def test_delete_user_permission_fail(self):
+        # given
+        # when
+        response = self.client.delete(
+            f"/users/student/{self.fixture_profile.user_id}",
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 401)
