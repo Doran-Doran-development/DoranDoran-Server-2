@@ -6,7 +6,7 @@ class IsOwner(BasePermission):
     def has_permission(self, request, view):
         if request.user.is_anonymous:
             return False
-        return str(request.user.id) == str(request.parser_context["kwargs"]["id"])
+        return str(request.user.id) == str(request.parser_context["kwargs"]["user_id"])
 
 
 class IsTeacher(BasePermission):
