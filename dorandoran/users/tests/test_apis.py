@@ -10,21 +10,12 @@ import abc
 
 
 class BaseUserAPITest:
-    def __init__(self):
-        self.user_role = UserRole.STUDENT.value
-
     def setUp(self):
         self.client = Client()
-        self.fixture_student_user = mommy.make(
-            "users.User", role=self.user_role, is_active=True
-        )
-        self.fixture_profile = self.create_profile(self.fixture_student_user.id)
-
-        payload = jwt_payload_handler(self.fixture_student_user)
-        self.token = jwt_encode_handler(payload)
+        self.prepare_fixture()
 
     @abc.abstractclassmethod
-    def create_profile(self, user_id):
+    def prepare_fixture(self):
         pass
 
     @abc.abstractclassmethod
@@ -45,11 +36,14 @@ class BaseUserAPITest:
 
 
 class StudentAPITest(BaseUserAPITest, TestCase):
-    def __init__(self):
-        self.user_role = UserRole.STUDENT.value
+    def prepare_fixture(self):
+        self.fixture_user = mommy.make(
+            "users.User", role=UserRole.STUDENT.value, is_active=True
+        )
+        self.fixture_profile = mommy.make("users.StudentProfile", user_id=self.fixture_user.id)
+        payload = jwt_payload_handler(self.fixture_user)
+        self.valid_token = jwt_encode_handler(payload)
 
-    def create_profile(self, user_id):
-        return mommy.make("users.StudentProfile", user_id=user_id)
 
     def test_create_user_success(self):
         # given
@@ -93,7 +87,7 @@ class StudentAPITest(BaseUserAPITest, TestCase):
 
     def test_delete_user_successful(self):
         # given
-        header = {"HTTP_AUTHORIZATION": "jwt " + self.token}
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.valid_token}
         # when
         response = self.client.delete(
             f"/users/student/{self.fixture_profile.user_id}",
@@ -112,3 +106,4 @@ class StudentAPITest(BaseUserAPITest, TestCase):
         )
         # then
         self.assertEqual(response.status_code, 401)
+
