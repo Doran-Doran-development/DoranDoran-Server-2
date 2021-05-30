@@ -10,10 +10,13 @@ import abc
 
 
 class BaseUserAPITest:
+    def __init__(self):
+        self.user_role = UserRole.STUDENT.value
+
     def setUp(self):
         self.client = Client()
         self.fixture_student_user = mommy.make(
-            "users.User", role=UserRole.STUDENT.value, is_active=True
+            "users.User", role=self.user_role, is_active=True
         )
         self.fixture_profile = self.create_profile(self.fixture_student_user.id)
 
@@ -42,6 +45,9 @@ class BaseUserAPITest:
 
 
 class StudentAPITest(BaseUserAPITest, TestCase):
+    def __init__(self):
+        self.user_role = UserRole.STUDENT.value
+
     def create_profile(self, user_id):
         return mommy.make("users.StudentProfile", user_id=user_id)
 
