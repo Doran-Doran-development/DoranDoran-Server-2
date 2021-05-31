@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:8.0.22
+    environment:
+      - MYSQL_DATABASE=dorandoran_dev_db
+      - MYSQL_USER=devuser
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      - TZ=Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/develop/Dockerfile-dev
+    volumes:
+      - ./:/app/
+    command:
+      - bash
+      - -c
+      - |
+        ./../wait-for-it.sh db:3306 -t 10
+        python dorandoran/manage.py runserver 0.0.0.0:8000
+    container_name: dorandoran_web
+    links:
+      - db
+    env_file:
+      - dev.env
+    environment:
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=3306
+      - DJANGO_DB_NAME=dorandoran_dev_db
+      - DJANGO_DB_USERNAME=devuser
+      - DJANGO_DB_PASSWORD=password
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "8000:8000"
