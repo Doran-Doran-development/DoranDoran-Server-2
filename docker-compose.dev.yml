@@ -30,6 +30,7 @@ services:
       - bash
       - -c
       - |
+        python dorandoran/manage.py migrate
         python dorandoran/manage.py runserver 0.0.0.0:8000
     container_name: dorandoran_web
     env_file:
