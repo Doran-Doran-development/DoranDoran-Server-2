@@ -1,0 +1,43 @@
+version: "2"
+
+services:
+  db:
+    image: mysql:5.7.34
+    container_name: dorandoran_db
+
+    ports:
+      - "7001:3306"
+    environment:
+      - MYSQL_DATABASE=dorandoran_dev_db
+      - MYSQL_USER=devuser
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/develop/Dockerfile-dev
+    volumes:
+      - ./:/app/
+    command:
+      - bash
+      - -c
+      - |
+        python dorandoran/manage.py migrate
+        python dorandoran/manage.py runserver 0.0.0.0:8000
+    container_name: dorandoran_web
+    env_file:
+      - dev.env
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+    ports:
+      - "8000:8000"
