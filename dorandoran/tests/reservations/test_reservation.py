@@ -102,6 +102,18 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         # then
         self.assertEqual(response.status_code, 204)
 
+    def test_accept_reservation_permission_fail(self):
+        # given
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.student_valid_token}
+        # when
+        response = self.client.patch(
+            "/reservations/{}/accept".format(self.fixture_reservation.id),
+            **header,
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 401)
+
     def test_deny_reservation_success(self):
         # given
         header = {"HTTP_AUTHORIZATION": "jwt " + self.teacher_valid_token}
