@@ -40,3 +40,12 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
             content_type="application/json",
         )
         self.assertEqual(response.status_code, 201)
+
+    def test_retrieve_reservation_success(self):
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.valid_token}
+        response = self.client.get(
+            "/reservations/my",
+            **header,
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 200)
