@@ -25,6 +25,7 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
             room_id=self.fixture_room,
             team_id=self.fixture_team,
         )
+
         payload = jwt_payload_handler(self.fixture_user)
         self.valid_token = jwt_encode_handler(payload)
 
@@ -55,3 +56,28 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         )
         # then
         self.assertEqual(response.status_code, 200)
+
+    def test_accept_reservation_success(self):
+        # given
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.valid_token}
+        # when
+        response = self.client.patch(
+            "/reservations/{}/accept".format(self.fixture_reservation.id),
+            **header,
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 204)
+
+    def test_deny_reservation_success(self):
+        # given
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.valid_token}
+        # when
+        response = self.client.patch(
+            "/reservations/{}/deny".format(self.fixture_reservation.id),
+            **header,
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 204)
+
