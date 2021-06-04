@@ -10,15 +10,19 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         self.fixture_user_student = mommy.make(
             "users.User", role=UserRole.STUDENT.value, is_active=True
         )
-
+        self.fixture_user_student_2 = mommy.make(
+            "users.User", role=UserRole.STUDENT.value, is_active=True
+        )
         self.fixture_user_teacher = mommy.make(
             "users.User", role=UserRole.TEACHER.value, is_active=True
         )
-        self.fixture_team = mommy.make("teams.Team", applicant_id=self.fixture_user)
+        self.fixture_team = mommy.make(
+            "teams.Team", applicant_id=self.fixture_user_student
+        )
         self.fixture_team_member = mommy.make(
             "teams.TeamMember",
             team_id=self.fixture_team,
-            member_id=self.fixture_user,
+            member_id=self.fixture_user_student,
         )
         self.fixture_room = mommy.make("rooms.Room", owner_id=self.fixture_teacher)
         self.fixture_reservation = mommy.make(
@@ -150,3 +154,16 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         )
         # then
         self.assertEqual(response.status_code, 202)
+
+    def test_cancel_reservation_permission_fail(self):
+        # given
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.fixture_user_student_2}
+
+        # when
+        response = self.client.delete(
+            "/reservations/{}".format(self.fixture_reservation.id),
+            **header,
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 401)
