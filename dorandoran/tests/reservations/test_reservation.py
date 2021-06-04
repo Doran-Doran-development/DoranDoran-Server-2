@@ -27,3 +27,16 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         )
         payload = jwt_payload_handler(self.fixture_user)
         self.valid_token = jwt_encode_handler(payload)
+
+    def test_create_reservation_success(self):
+        payload = {
+            "time": [8, 9, 10, 11],
+            "description": "2021주소창대회참여를 위해 홈베이스[1]실을 대여합니다",
+            "team_id": self.fixture_team.id,
+        }
+        response = self.client.post(
+            "/reservations/{}".format(self.fixture_room.id),
+            data=payload,
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 201)
