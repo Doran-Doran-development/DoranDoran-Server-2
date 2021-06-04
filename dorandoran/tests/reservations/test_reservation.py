@@ -1,6 +1,6 @@
 from django.test import TestCase
 from model_mommy import mommy
-from dorandoran.accounts.utils import jwt_encode_handler, jwt_payload_handler
+from accounts.utils import jwt_encode_handler, jwt_payload_handler
 from users.enums import UserRole
 from tests.reservations.base import BaseReservationAPITest
 
@@ -24,7 +24,7 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
             team_id=self.fixture_team,
             member_id=self.fixture_user_student,
         )
-        self.fixture_room = mommy.make("rooms.Room", owner_id=self.fixture_teacher)
+        self.fixture_room = mommy.make("rooms.Room", owner_id=self.fixture_user_teacher)
         self.fixture_reservation = mommy.make(
             "reservations.ReservationQueue",
             room_id=self.fixture_room,
