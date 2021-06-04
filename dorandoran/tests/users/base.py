@@ -7,22 +7,22 @@ class BaseUserAPITest:
         self.client = Client()
         self.prepare_fixture()
 
-    @abc.abstractclassmethod
+    @abc.abstractmethod
     def prepare_fixture(self):
         pass
 
-    @abc.abstractclassmethod
+    @abc.abstractmethod
     def test_create_user_success(self):
         pass
 
-    @abc.abstractclassmethod
+    @abc.abstractmethod
     def test_retrieve_user_success(self):
         pass
 
-    @abc.abstractclassmethod
+    @abc.abstractmethod
     def test_list_user_success(self):
         pass
 
-    @abc.abstractclassmethod
+    @abc.abstractmethod
     def test_delete_user_success(self):
         pass
