@@ -10,6 +10,7 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         self.fixture_user_student = mommy.make(
             "users.User", role=UserRole.STUDENT.value, is_active=True
         )
+
         self.fixture_user_teacher = mommy.make(
             "users.User", role=UserRole.TEACHER.value, is_active=True
         )
@@ -48,6 +49,24 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         )
         # then
         self.assertEqual(response.status_code, 201)
+
+    def test_create_reservation_permission_fail(self):
+        # given
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.teacher_valid_token}
+        payload = {
+            "time": [8, 9, 10, 11],
+            "description": "2021주소창대회참여를 위해 홈베이스[1]실을 대여합니다",
+            "team_id": self.fixture_team.id,
+        }
+        # when
+        response = self.client.post(
+            "/reservations/{}".format(self.fixture_room.id),
+            **header,
+            data=payload,
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 401)
 
     def test_retrieve_reservation_success(self):
         # given
