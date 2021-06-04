@@ -31,9 +31,11 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
             team_id=self.fixture_team,
         )
 
-        student_payload = jwt_payload_handler(self.fixture_user_teacher)
-        teacher_payload = jwt_payload_handler(self.fixture_user_student)
+        student_payload = jwt_payload_handler(self.fixture_user_student)
+        student_2_payload = jwt_payload_handler(self.fixture_user_student_2)
+        teacher_payload = jwt_payload_handler(self.fixture_user_teacher)
         self.student_valid_token = jwt_encode_handler(student_payload)
+        self.student_valid_token_2 = jwt_encode_handler(student_2_payload)
         self.teacher_valid_token = jwt_encode_handler(teacher_payload)
 
     def test_create_reservation_success(self):
@@ -157,7 +159,7 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
 
     def test_cancel_reservation_permission_fail(self):
         # given
-        header = {"HTTP_AUTHORIZATION": "jwt " + self.fixture_user_student_2}
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.student_valid_token_2}
 
         # when
         response = self.client.delete(
