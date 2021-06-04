@@ -29,23 +29,29 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         self.valid_token = jwt_encode_handler(payload)
 
     def test_create_reservation_success(self):
+        # given
         payload = {
             "time": [8, 9, 10, 11],
             "description": "2021주소창대회참여를 위해 홈베이스[1]실을 대여합니다",
             "team_id": self.fixture_team.id,
         }
+        # when
         response = self.client.post(
             "/reservations/{}".format(self.fixture_room.id),
             data=payload,
             content_type="application/json",
         )
+        # then
         self.assertEqual(response.status_code, 201)
 
     def test_retrieve_reservation_success(self):
+        # given
         header = {"HTTP_AUTHORIZATION": "jwt " + self.valid_token}
+        # when
         response = self.client.get(
             "/reservations/my",
             **header,
             content_type="application/json",
         )
+        # then
         self.assertEqual(response.status_code, 200)
