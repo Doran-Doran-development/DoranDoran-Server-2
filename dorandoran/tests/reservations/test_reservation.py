@@ -81,3 +81,15 @@ class ReservationAPITest(BaseReservationAPITest, TestCase):
         # then
         self.assertEqual(response.status_code, 204)
 
+    def test_cancel_reservation_success(self):
+        # given
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.valid_token}
+
+        # when
+        response = self.client.delete(
+            "/reservations/{}".format(self.fixture_reservation.id),
+            **header,
+            content_type="application/json",
+        )
+        # then
+        self.assertEqual(response.status_code, 202)
