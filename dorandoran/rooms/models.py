@@ -10,5 +10,5 @@ class Room(models.Model):
     status = models.BooleanField(default=False)
     capacity = models.IntegerField()
     description = models.TextField(null=True)
-    image = models.CharField(max_length=255, null=True)
+    image = models.ImageField(upload_to='image/', default="image/no_image.png")
     available_time = models.CharField(max_length=50, null=True)
