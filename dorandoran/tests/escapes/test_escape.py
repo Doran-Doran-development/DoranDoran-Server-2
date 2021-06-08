@@ -1,6 +1,5 @@
 from django.http import response
 from django.test import Client
-import abc
 
 from django.test import TestCase
 from model_mommy import mommy
@@ -13,7 +12,6 @@ class EscapeAPITest(TestCase):
         self.client = Client()
         self.prepare_fixture()
 
-    @abc.abstractmethod
     def prepare_fixture(self):
 
         # student
@@ -42,7 +40,6 @@ class EscapeAPITest(TestCase):
             "escapes.EscapeQueue", applicant_id=self.student_user
         )
 
-    @abc.abstractmethod
     def test_create_escapes_success(self):
         # given
         header = {"HTTP_AUTHORIZATION": "jwt " + self.student_token}
@@ -54,7 +51,7 @@ class EscapeAPITest(TestCase):
         }
         # when
         response = self.client.post(
-            "/escapes",
+            "/escapes/",
             **header,
             data=payload,
             content_type="application/json",
@@ -62,7 +59,6 @@ class EscapeAPITest(TestCase):
         # then
         self.assertEqual(response.status_code, 201)
 
-    @abc.abstractmethod
     def test_list_escapes_success(self):
 
         header = {"HTTP_AUTHORIZATION": "jwt " + self.student_token}
@@ -75,28 +71,38 @@ class EscapeAPITest(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    @abc.abstractmethod
     def test_accept_escapes_success(self):
 
         header = {"HTTP_AUTHORIZATION": "jwt " + self.teacher_token}
 
         response = self.client.patch(
-            "/escapes/{self.fixture_escape.id}/accept",
+            f"/escapes/{self.fixture_escape.id}/accept",
             **header,
             content_type="application/json",
         )
 
         self.assertEqual(response.status_code, 200)
 
-    @abc.abstractmethod
     def test_deny_escapes_success(self):
 
         header = {"HTTP_AUTHORIZATION": "jwt " + self.teacher_token}
 
         response = self.client.patch(
-            "/escapes/{self.fixture_escape.id}/deny",
+            f"/escapes/{self.fixture_escape.id}/deny",
             **header,
             content_type="application/json",
         )
 
         self.assertEqual(response.status_code, 200)
+
+    def test_delete_escapes_success(self):
+
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.student_token}
+
+        response = self.client.delete(
+            f"/escapes/{self.fixture_escape.id}",
+            **header,
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 204)
