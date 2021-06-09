@@ -13,14 +13,14 @@ class IsTeacher(BasePermission):
     def has_permission(self, request, view):
         if request.user.is_anonymous:
             return False
-        return request.user.role == UserRole.TEACHER
+        return request.user.role == UserRole.TEACHER.value
 
 
 class IsStudent(BasePermission):
     def has_permission(self, request, view):
         if request.user.is_anonymous:
             return False
-        return request.user.role == UserRole.STUDENT
+        return request.user.role == UserRole.STUDENT.value
 
 
 class AllowAny(BasePermission):
