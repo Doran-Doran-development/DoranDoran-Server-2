@@ -106,3 +106,27 @@ class EscapeAPITest(TestCase):
         )
 
         self.assertEqual(response.status_code, 204)
+
+    def test_accept_escape_fail(self):
+
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.student_token}
+
+        response = self.client.patch(
+            f"/escapes/{self.fixture_escape.id}/accept",
+            **header,
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_deny_escape_fail(self):
+
+        header = {"HTTP_AUTHORIZATION": "jwt " + self.student_token}
+
+        response = self.client.patch(
+            f"/escapes/{self.fixture_escape.id}/deny",
+            **header,
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 403)
